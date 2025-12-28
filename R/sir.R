@@ -548,9 +548,11 @@ as.sir.default <- function(x,
       which(TRANSLATIONS$pattern %in% c("Incr. exposure", "Susceptible, incr. exp.", "Intermediate")),
       LANGUAGES_SUPPORTED[LANGUAGES_SUPPORTED %in% colnames(TRANSLATIONS)]
     ])
-    x <- gsub(paste0(unique(trans_R[!is.na(trans_R)]), collapse = "|"), "R", x, ignore.case = TRUE)
-    x <- gsub(paste0(unique(trans_S[!is.na(trans_S)]), collapse = "|"), "S", x, ignore.case = TRUE)
-    x <- gsub(paste0(unique(trans_I[!is.na(trans_I)]), collapse = "|"), "I", x, ignore.case = TRUE)
+
+    x[grepl(paste0(unique(trans_R[!is.na(trans_R)]), collapse = "|", ignore.case = TRUE), x)] <- "R"
+    x[grepl(paste0(unique(trans_S[!is.na(trans_S)]), collapse = "|", ignore.case = TRUE), x)] <- "S"
+    x[grepl(paste0(unique(trans_I[!is.na(trans_I)]), collapse = "|", ignore.case = TRUE), x)] <- "I"
+
     # replace all English textual input
     x[x %like% "([^a-z]|^)res(is(tant)?)?"] <- "R"
     x[x %like% "([^a-z]|^)sus(cep(tible)?)?"] <- "S"
