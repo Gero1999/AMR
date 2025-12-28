@@ -402,6 +402,10 @@ test_that("test-sir.R", {
   expect_equal(out3, as.sir(c("R", "S", "R")))
   expect_equal(out4, as.sir(c("R", "S", "R")))
 
+  # Standard SDTM MS values passing ---------------------------------------
+  ms_values <- c("SUSCEPTIBLE", "INTERMEDIATE", "RESISTANT")
+  expect_equal(as.sir(ms_values), as.sir(c("S", "I", "R")))
+
   # Parallel computing ----------------------------------------------------
 
   # MB 29 Apr 2025: I have run the code of AVC, PEI, Canada (dataset of 2854x65), and compared it like this:
